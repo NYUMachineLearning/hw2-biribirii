@@ -157,6 +157,8 @@ ggplot(test_regression, aes(x = Wind, y = Temp)) +
 ggplot(test_regression, aes(x = Wind, y = Temp)) +
   geom_point() +
   geom_line(data = fortify(linear_regression), aes(x = Wind, y = .fitted))
+
+# the data visually appears to be homoscedastic
 ```
 
 4 e) Residuals should be normally distributed. Plot the density of the residuals
@@ -181,6 +183,7 @@ cor.test(train_regression$Wind, resid(linear_regression))
 5. Create a linear model using L1 or L2 regularization to predict Temperature from Wind and Month variables. Plot your predicted values and the real Y values on the same plot. 
 
 ```{r regularization}
+
 # L1 regularization and plot
 l1_regularization <- train(Temp ~ Wind + Month, data=train_regression , method = "lasso")
 
