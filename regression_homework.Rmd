@@ -149,16 +149,13 @@ ggplot(test_regression, aes(x = Wind, y = Temp)) +
 ```{r plot predicted vs. real}
 # Extract coefficients from the model
 coefficients(linear_regression)
-# plot the regression line on the predicted values
-ggplot(test_regression, aes(x = Wind, y = Temp)) +
-  geom_point(aes(y = linear_predict), color = 'red') +
-  geom_line(data = fortify(linear_regression), aes(x = Wind, y = .fitted))
-# plot the original test values
-ggplot(test_regression, aes(x = Wind, y = Temp)) +
-  geom_point() +
-  geom_line(data = fortify(linear_regression), aes(x = Wind, y = .fitted))
+# residual graph of predicted vs. observed
+ggplot(data = test_regression, aes(x = Wind, y = Temp)) +
+  geom_point(aes(x = Wind, y = Temp, color = 'Observed')) +
+  geom_line(data = fortify(linear_regression), aes(x = Wind, y = .fitted)) +
+  geom_segment(aes(xend = Wind, yend = linear_predict)) + 
+  geom_point(aes(y = linear_predict, color = 'Predicted'))
 
-# the data visually appears to be homoscedastic
 ```
 
 4 e) Residuals should be normally distributed. Plot the density of the residuals
